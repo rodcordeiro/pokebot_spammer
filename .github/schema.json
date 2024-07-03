@@ -39,121 +39,119 @@
             "remove_market",
             "booster"
           ]
-        },
-        "multipages": {
-          "type": "boolean",
-          "description": "Caso a ação seja spamming, utilize esta opção para executar em várias páginas."
-        },
-        "levels": {
-          "type": "number",
-          "description": "Quantos níveis deseja evoluir. Utilizado para calcular a quantidade de mensagens a serem enviadas."
-        },
-        "pokemon_id": {
-          "type": "string",
-          "description": "Id do pokemon a ser selecionado",
-          "pattern": "^(?!0$)\\d+$"
-        },
-        "booster_level": {
-          "type": "string",
-          "description": "Nível do booster a ser comprado",
-          "pattern": "^[123]$"
-        },
-        "range_start": {
-          "type": "string",
-          "description": "Id do pokemon a partir do qual serão adicionados ao mercado",
-          "pattern": "^(?!0$)\\d+$"
-        },
-        "range_end": {
-          "type": "string",
-          "description": "Id do pokemon até o qual serão adicionados ao mercado",
-          "pattern": "^(?!0$)\\d+$"
-        },
-        "market_value": {
-          "type": "string",
-          "description": "Valor cujos pokemons serão adicionados ao mercado",
-          "pattern": "^(?!0$)\\d+$"
         }
       },
       "required": [
         "action"
       ],
-      "allOf": [
-        {
-          "if": {
-            "properties": {
-              "action": {
-                "const": "spamming"
-              }
+      "dependencies": {
+        "action": {
+          "oneOf": [
+            {
+              "properties": {
+                "action": {
+                  "const": "spamming"
+                },
+                "multipages": {
+                  "type": "boolean",
+                  "description": "Caso a ação seja spamming, utilize esta opção para executar em várias páginas."
+                },
+                "levels": {
+                  "type": "number",
+                  "description": "Quantos níveis deseja evoluir. Utilizado para calcular a quantidade de mensagens a serem enviadas."
+                }
+              },
+              "required": [
+                "levels"
+              ]
+            },
+            {
+              "properties": {
+                "action": {
+                  "const": "change_poke"
+                },
+                "pokemon_id": {
+                  "type": "string",
+                  "description": "Id do pokemon a ser selecionado",
+                  "pattern": "^(?!0$)\\d+$"
+                }
+              },
+              "required": [
+                "pokemon_id"
+              ]
+            },
+            {
+              "properties": {
+                "action": {
+                  "const": "booster"
+                },
+                "booster_level": {
+                  "type": "string",
+                  "description": "Nível do booster a ser comprado",
+                  "pattern": "^[123]$"
+                }
+              },
+              "required": [
+                "booster_level"
+              ]
+            },
+            {
+              "properties": {
+                "action": {
+                  "const": "add_market"
+                },
+                "range_start": {
+                  "type": "string",
+                  "description": "Id do pokemon a partir do qual serão adicionados ao mercado",
+                  "pattern": "^(?!0$)\\d+$"
+                },
+                "range_end": {
+                  "type": "string",
+                  "description": "Id do pokemon até o qual serão adicionados ao mercado",
+                  "pattern": "^(?!0$)\\d+$"
+                },
+                "market_value": {
+                  "type": "string",
+                  "description": "Valor cujos pokemons serão adicionados ao mercado",
+                  "pattern": "^(?!0$)\\d+$"
+                }
+              },
+              "required": [
+                "range_start",
+                "range_end",
+                "market_value"
+              ]
+            },
+            {
+              "properties": {
+                "action": {
+                  "const": "remove_market"
+                },
+                "range_start": {
+                  "type": "string",
+                  "description": "Id do pokemon a partir do qual serão adicionados ao mercado",
+                  "pattern": "^(?!0$)\\d+$"
+                },
+                "range_end": {
+                  "type": "string",
+                  "description": "Id do pokemon até o qual serão adicionados ao mercado",
+                  "pattern": "^(?!0$)\\d+$"
+                },
+                "market_value": {
+                  "type": "string",
+                  "description": "Valor cujos pokemons serão adicionados ao mercado",
+                  "pattern": "^(?!0$)\\d+$"
+                }
+              },
+              "required": [
+                "range_start",
+                "range_end",
+                "market_value"
+              ]
             }
-          },
-          "then": {
-            "required": [
-              "multipages",
-              "levels"
-            ]
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "action": {
-                "const": "change_poke"
-              }
-            }
-          },
-          "then": {
-            "required": [
-              "pokemon_id"
-            ]
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "action": {
-                "const": "booster"
-              }
-            }
-          },
-          "then": {
-            "required": [
-              "booster_level"
-            ]
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "action": {
-                "const": "add_market"
-              }
-            }
-          },
-          "then": {
-            "required": [
-              "range_start",
-              "range_end",
-              "market_value"
-            ]
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "action": {
-                "const": "remove_market"
-              }
-            }
-          },
-          "then": {
-            "required": [
-              "range_start",
-              "range_end",
-              "market_value"
-            ]
-          }
+          ]
         }
-      ]
+      }
     }
   },
   "required": [
