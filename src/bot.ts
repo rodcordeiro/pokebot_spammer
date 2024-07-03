@@ -26,6 +26,7 @@ export class Bot {
   async launch() {
     const browser = await puppeteer.launch({
       headless: true, args: ['--no-sandbox'],
+      timeout: 120000
     });
     this._client = browser;
   }
