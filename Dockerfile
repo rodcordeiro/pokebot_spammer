@@ -2,6 +2,10 @@ FROM node:20
 
 WORKDIR /bot
 
+COPY . .
+
+RUN npm install --legacy-peer-deps
+
 # Install latest chrome dev package and fonts to support major charsets (Chinese, Japanese, Arabic, Hebrew, Thai and a few others)
 # Note: this installs the necessary libs to make the bundled version of Chromium that Puppeteer
 # installs, work.
@@ -25,9 +29,6 @@ RUN apt-get update \
 # Run everything after as non-privileged user.
 USER pptruser
 
-COPY . .
-
-RUN npm install --legacy-peer-deps
 
 RUN npm run build
 
