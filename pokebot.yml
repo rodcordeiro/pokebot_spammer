@@ -5,8 +5,10 @@ authentication:
   password: 'xxxx'
 
 actions:
-  - action: 'spamming'
-    levels: 1
-  - action: booster
+    - action: "spamming"
+      levels: 30
+      multipages: true
+    - action: "change_poke"
+      pokemon_id: 5
     
-
+    

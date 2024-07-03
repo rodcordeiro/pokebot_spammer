@@ -73,7 +73,7 @@
                     "const": "change_poke"
                   },
                   "pokemon_id": {
-                    "type": "string",
+                    "type": "number",
                     "description": "Id do pokemon a ser selecionado",
                     "pattern": "^(?!0$)\\d+$"
                   }
@@ -88,7 +88,7 @@
                     "const": "booster"
                   },
                   "booster_level": {
-                    "type": "string",
+                    "type": "number",
                     "description": "Nível do booster a ser comprado",
                     "pattern": "^[123]$"
                   }
@@ -103,17 +103,17 @@
                     "const": "add_market"
                   },
                   "range_start": {
-                    "type": "string",
+                    "type": "number",
                     "description": "Id do pokemon a partir do qual serão adicionados ao mercado",
                     "pattern": "^(?!0$)\\d+$"
                   },
                   "range_end": {
-                    "type": "string",
+                    "type": "number",
                     "description": "Id do pokemon até o qual serão adicionados ao mercado",
                     "pattern": "^(?!0$)\\d+$"
                   },
                   "market_value": {
-                    "type": "string",
+                    "type": "number",
                     "description": "Valor cujos pokemons serão adicionados ao mercado",
                     "pattern": "^(?!0$)\\d+$"
                   }
@@ -129,20 +129,22 @@
                   "action": {
                     "const": "remove_market"
                   },
-                  "range_start": {
-                    "type": "string",
-                    "description": "Id do pokemon a partir do qual serão adicionados ao mercado",
-                    "pattern": "^(?!0$)\\d+$"
-                  },
-                  "range_end": {
-                    "type": "string",
-                    "description": "Id do pokemon até o qual serão adicionados ao mercado",
-                    "pattern": "^(?!0$)\\d+$"
-                  },
-                  "market_value": {
-                    "type": "string",
-                    "description": "Valor cujos pokemons serão adicionados ao mercado",
-                    "pattern": "^(?!0$)\\d+$"
+                  "market_actions": {
+                    "range_start": {
+                      "type": "number",
+                      "description": "Id do pokemon a partir do qual serão adicionados ao mercado",
+                      "pattern": "^(?!0$)\\d+$"
+                    },
+                    "range_end": {
+                      "type": "number",
+                      "description": "Id do pokemon até o qual serão adicionados ao mercado",
+                      "pattern": "^(?!0$)\\d+$"
+                    },
+                    "market_value": {
+                      "type": "number",
+                      "description": "Valor cujos pokemons serão adicionados ao mercado",
+                      "pattern": "^(?!0$)\\d+$"
+                    }
                   }
                 },
                 "required": [
@@ -160,5 +162,6 @@
   "required": [
     "authentication",
     "actions"
-  ]
+  ],
+  "$definitions": {}
 }
