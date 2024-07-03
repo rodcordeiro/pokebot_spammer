@@ -1,36 +1,163 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Configuração",
-    "type": "object",
-    "properties": {
-      "servidor": {
-        "type": "object",
-        "properties": {
-          "host": {
-            "type": "string"
-          },
-          "porta": {
-            "type": "integer"
-          }
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Configuração",
+  "type": "object",
+  "properties": {
+    "authentication": {
+      "type": "object",
+      "description": "Informações para autenticação",
+      "properties": {
+        "user": {
+          "type": "string",
+          "description": "Usuário para autenticação no discord"
         },
-        "required": ["host", "porta"]
+        "password": {
+          "type": "string",
+          "description": "Senha para autenticação no discord"
+        },
+        "mfa": {
+          "type": "string",
+          "pattern": "\\d",
+          "description": "Caso possua autenticação de 2 fatores, informe o código MFA para autenticação. *Lembre-se de alterar este código antes de iniciar o bot.*"
+        }
       },
-      "database": {
-        "type": "object",
-        "properties": {
-          "usuario": {
-            "type": "string"
+      "required": [
+        "user",
+        "password"
+      ]
+    },
+    "actions": {
+      "type": "object",
+      "description": "Ações a serem executadas!",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "spamming",
+            "change_poke",
+            "add_market",
+            "remove_market",
+            "booster"
+          ]
+        },
+        "multipages": {
+          "type": "boolean",
+          "description": "Caso a ação seja spamming, utilize esta opção para executar em várias páginas."
+        },
+        "levels": {
+          "type": "number",
+          "description": "Quantos níveis deseja evoluir. Utilizado para calcular a quantidade de mensagens a serem enviadas."
+        },
+        "pokemon_id": {
+          "type": "string",
+          "description": "Id do pokemon a ser selecionado",
+          "pattern": "^(?!0$)\\d+$"
+        },
+        "booster_level": {
+          "type": "string",
+          "description": "Nível do booster a ser comprado",
+          "pattern": "^[123]$"
+        },
+        "range_start": {
+          "type": "string",
+          "description": "Id do pokemon a partir do qual serão adicionados ao mercado",
+          "pattern": "^(?!0$)\\d+$"
+        },
+        "range_end": {
+          "type": "string",
+          "description": "Id do pokemon até o qual serão adicionados ao mercado",
+          "pattern": "^(?!0$)\\d+$"
+        },
+        "market_value": {
+          "type": "string",
+          "description": "Valor cujos pokemons serão adicionados ao mercado",
+          "pattern": "^(?!0$)\\d+$"
+        }
+      },
+      "required": [
+        "action"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "const": "spamming"
+              }
+            }
           },
-          "senha": {
-            "type": "string"
-          },
-          "nome": {
-            "type": "string"
+          "then": {
+            "required": [
+              "multipages",
+              "levels"
+            ]
           }
         },
-        "required": ["usuario", "senha", "nome"]
-      }
-    },
-    "required": ["servidor", "database"]
-  }
-  
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "const": "change_poke"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "pokemon_id"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "const": "booster"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "booster_level"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "const": "add_market"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "range_start",
+              "range_end",
+              "market_value"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "const": "remove_market"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "range_start",
+              "range_end",
+              "market_value"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "required": [
+    "authentication",
+    "actions"
+  ]
+}
