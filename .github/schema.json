@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Configuração",
+    "type": "object",
+    "properties": {
+      "servidor": {
+        "type": "object",
+        "properties": {
+          "host": {
+            "type": "string"
+          },
+          "porta": {
+            "type": "integer"
+          }
+        },
+        "required": ["host", "porta"]
+      },
+      "database": {
+        "type": "object",
+        "properties": {
+          "usuario": {
+            "type": "string"
+          },
+          "senha": {
+            "type": "string"
+          },
+          "nome": {
+            "type": "string"
+          }
+        },
+        "required": ["usuario", "senha", "nome"]
+      }
+    },
+    "required": ["servidor", "database"]
+  }
+  
