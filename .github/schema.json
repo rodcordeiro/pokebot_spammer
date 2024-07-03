@@ -27,129 +27,132 @@
       ]
     },
     "actions": {
-      "type": "object",
+      "type": "array",
       "description": "Ações a serem executadas!",
-      "properties": {
-        "action": {
-          "type": "string",
-          "enum": [
-            "spamming",
-            "change_poke",
-            "add_market",
-            "remove_market",
-            "booster"
-          ]
-        }
-      },
-      "required": [
-        "action"
-      ],
-      "dependencies": {
-        "action": {
-          "oneOf": [
-            {
-              "properties": {
-                "action": {
-                  "const": "spamming"
+      "items": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "spamming",
+              "change_poke",
+              "add_market",
+              "remove_market",
+              "booster"
+            ]
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "dependencies": {
+          "action": {
+            "oneOf": [
+              {
+                "properties": {
+                  "action": {
+                    "const": "spamming"
+                  },
+                  "multipages": {
+                    "type": "boolean",
+                    "description": "Caso a ação seja spamming, utilize esta opção para executar em várias páginas."
+                  },
+                  "levels": {
+                    "type": "number",
+                    "description": "Quantos níveis deseja evoluir. Utilizado para calcular a quantidade de mensagens a serem enviadas."
+                  }
                 },
-                "multipages": {
-                  "type": "boolean",
-                  "description": "Caso a ação seja spamming, utilize esta opção para executar em várias páginas."
-                },
-                "levels": {
-                  "type": "number",
-                  "description": "Quantos níveis deseja evoluir. Utilizado para calcular a quantidade de mensagens a serem enviadas."
-                }
+                "required": [
+                  "levels"
+                ]
               },
-              "required": [
-                "levels"
-              ]
-            },
-            {
-              "properties": {
-                "action": {
-                  "const": "change_poke"
+              {
+                "properties": {
+                  "action": {
+                    "const": "change_poke"
+                  },
+                  "pokemon_id": {
+                    "type": "string",
+                    "description": "Id do pokemon a ser selecionado",
+                    "pattern": "^(?!0$)\\d+$"
+                  }
                 },
-                "pokemon_id": {
-                  "type": "string",
-                  "description": "Id do pokemon a ser selecionado",
-                  "pattern": "^(?!0$)\\d+$"
-                }
+                "required": [
+                  "pokemon_id"
+                ]
               },
-              "required": [
-                "pokemon_id"
-              ]
-            },
-            {
-              "properties": {
-                "action": {
-                  "const": "booster"
+              {
+                "properties": {
+                  "action": {
+                    "const": "booster"
+                  },
+                  "booster_level": {
+                    "type": "string",
+                    "description": "Nível do booster a ser comprado",
+                    "pattern": "^[123]$"
+                  }
                 },
-                "booster_level": {
-                  "type": "string",
-                  "description": "Nível do booster a ser comprado",
-                  "pattern": "^[123]$"
-                }
+                "required": [
+                  "booster_level"
+                ]
               },
-              "required": [
-                "booster_level"
-              ]
-            },
-            {
-              "properties": {
-                "action": {
-                  "const": "add_market"
+              {
+                "properties": {
+                  "action": {
+                    "const": "add_market"
+                  },
+                  "range_start": {
+                    "type": "string",
+                    "description": "Id do pokemon a partir do qual serão adicionados ao mercado",
+                    "pattern": "^(?!0$)\\d+$"
+                  },
+                  "range_end": {
+                    "type": "string",
+                    "description": "Id do pokemon até o qual serão adicionados ao mercado",
+                    "pattern": "^(?!0$)\\d+$"
+                  },
+                  "market_value": {
+                    "type": "string",
+                    "description": "Valor cujos pokemons serão adicionados ao mercado",
+                    "pattern": "^(?!0$)\\d+$"
+                  }
                 },
-                "range_start": {
-                  "type": "string",
-                  "description": "Id do pokemon a partir do qual serão adicionados ao mercado",
-                  "pattern": "^(?!0$)\\d+$"
-                },
-                "range_end": {
-                  "type": "string",
-                  "description": "Id do pokemon até o qual serão adicionados ao mercado",
-                  "pattern": "^(?!0$)\\d+$"
-                },
-                "market_value": {
-                  "type": "string",
-                  "description": "Valor cujos pokemons serão adicionados ao mercado",
-                  "pattern": "^(?!0$)\\d+$"
-                }
+                "required": [
+                  "range_start",
+                  "range_end",
+                  "market_value"
+                ]
               },
-              "required": [
-                "range_start",
-                "range_end",
-                "market_value"
-              ]
-            },
-            {
-              "properties": {
-                "action": {
-                  "const": "remove_market"
+              {
+                "properties": {
+                  "action": {
+                    "const": "remove_market"
+                  },
+                  "range_start": {
+                    "type": "string",
+                    "description": "Id do pokemon a partir do qual serão adicionados ao mercado",
+                    "pattern": "^(?!0$)\\d+$"
+                  },
+                  "range_end": {
+                    "type": "string",
+                    "description": "Id do pokemon até o qual serão adicionados ao mercado",
+                    "pattern": "^(?!0$)\\d+$"
+                  },
+                  "market_value": {
+                    "type": "string",
+                    "description": "Valor cujos pokemons serão adicionados ao mercado",
+                    "pattern": "^(?!0$)\\d+$"
+                  }
                 },
-                "range_start": {
-                  "type": "string",
-                  "description": "Id do pokemon a partir do qual serão adicionados ao mercado",
-                  "pattern": "^(?!0$)\\d+$"
-                },
-                "range_end": {
-                  "type": "string",
-                  "description": "Id do pokemon até o qual serão adicionados ao mercado",
-                  "pattern": "^(?!0$)\\d+$"
-                },
-                "market_value": {
-                  "type": "string",
-                  "description": "Valor cujos pokemons serão adicionados ao mercado",
-                  "pattern": "^(?!0$)\\d+$"
-                }
-              },
-              "required": [
-                "range_start",
-                "range_end",
-                "market_value"
-              ]
-            }
-          ]
+                "required": [
+                  "range_start",
+                  "range_end",
+                  "market_value"
+                ]
+              }
+            ]
+          }
         }
       }
     }

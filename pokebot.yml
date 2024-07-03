@@ -5,6 +5,8 @@ authentication:
   password: 'xxxx'
 
 actions:
-  action: 'spamming'
-  levels: 10
-  multipages: false
+  - action: 'spamming'
+    levels: 1
+  - action: booster
+    
+
