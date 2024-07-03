@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/index.ts"
+    "start:prod": "node dist/index.js",
+    "start:dev": "tsx watch src/index.ts",
+    "build": "tsc -b .",
+    "pretty": "prettier --ignore-path .eslintignore --write ."
   },
   "keywords": [],
   "author": "",
