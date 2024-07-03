@@ -8,10 +8,10 @@ RUN apt-get install -y gconf-service libgbm-dev libasound2 libatk1.0-0 libc6 lib
 
 COPY . .
 
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 RUN npm run build
 
 EXPOSE 80
 
-CMD [ "node", "dist/src/index.js"]
+CMD [ "node", "dist/index.js"]
