@@ -25,7 +25,7 @@ export class Bot {
 
   async launch() {
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
     });
     this._client = browser;
   }
