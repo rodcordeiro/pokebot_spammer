@@ -26,11 +26,12 @@ RUN apt-get update \
     && chown -R pptruser:pptruser ./package.json \
     && chown -R pptruser:pptruser ./package-lock.json
 
+RUN npm run build
+
 # Run everything after as non-privileged user.
 USER pptruser
 
 
-RUN npm run build
 
 EXPOSE 80
 
