@@ -39,7 +39,7 @@ export class Bot {
     await this.launchPage();    
 
     
-    const email_input = await this._page.waitForSelector(
+    const email_input = await this._page?.waitForSelector(
       "input[name='email']",
       {
         timeout: 30000,
@@ -47,25 +47,25 @@ export class Bot {
     );
 
     await email_input?.type(process.env.DISCORD_EMAIL as string);
-    const pwd_input = await this._page.waitForSelector(
+    const pwd_input = await this._page?.waitForSelector(
       "input[name='password']",
     );
     await pwd_input?.type(process.env.DISCORD_PASSWORD as string);
-    await this._page.keyboard.press('Enter');
+    await this._page?.keyboard.press('Enter');
 
     if (process.env.DISCORD_MFA) {
-      const mfa_input = await this._page.waitForSelector(
+      const mfa_input = await this._page?.waitForSelector(
         'input[autocomplete="one-time-code"]',
       );
       await mfa_input?.type(process.env.DISCORD_MFA);
-      await this._page.keyboard.press('Enter');
+      await this._page?.keyboard.press('Enter');
     }
 
     sleep(10000);
-    await this._page.goto(this.default_channel);
+    await this._page?.goto(this.default_channel);
   }
   async spam(levels: number) {
-    const input = await this._page.waitForSelector(
+    const input = await this._page?.waitForSelector(
       `div[aria-label='${this.input_label}']`,
       {
         timeout: 120000,
@@ -78,7 +78,7 @@ export class Bot {
     for await (const msg of total_messages) {
       i++;
       await input?.type(msg);
-      await this._page.keyboard.press('Enter');
+      await this._page?.keyboard.press('Enter');
       console.log(
         `${Math.round((i / total_messages.length) * 100)}% - ${i}/${total_messages.length} mensagens enviadas`,
       );
