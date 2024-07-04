@@ -12,7 +12,8 @@ export class Bot implements iBot {
 
   async launch() {
     const browser = await puppeteer.launch({
-      headless: true
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
     this._client = browser;
   }
