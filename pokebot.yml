@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/rodcordeiro/pokebot_spammer/develop/.github/schema.json
+
+authentication:
+  user: 'xxx'
+  password: 'xxxx'
+
+actions:
+    - action: "spamming"
+      levels: 30
+      multipages: true
+    - action: "change_poke"
+      pokemon_id: 5
+    
+    

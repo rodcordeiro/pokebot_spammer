@@ -1,0 +1,196 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Configuração",
+  "type": "object",
+  "properties": {
+    "authentication": {
+      "type": "object",
+      "description": "Informações para autenticação",
+      "properties": {
+        "user": {
+          "type": "string",
+          "description": "Usuário para autenticação no discord"
+        },
+        "password": {
+          "type": "string",
+          "description": "Senha para autenticação no discord"
+        },
+        "mfa": {
+          "type": "string",
+          "pattern": "\\d",
+          "description": "Caso possua autenticação de 2 fatores, informe o código MFA para autenticação. *Lembre-se de alterar este código antes de iniciar o bot.*"
+        }
+      },
+      "required": [
+        "user",
+        "password"
+      ]
+    },
+    "channel": {
+      "type": "object",
+      "description": "Informações do canal para processamento do bot",
+      "properties": {
+        "channel_url": {
+          "type": "string",
+          "pattern": "https?:\/\/(www\\.)?discord\\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\\+.~#?&\/\/=]*)",
+          "description": "URL do canal do discord que será utilizado para o processo de interação do bot."
+        },
+        "input_label": {
+          "type": "string",
+          "description": "Label exibida no input de mensagens. Utilizado para identificar o input.\n*Exemplo:*\nSe o canal se chamar **Spammar**, o input deve estar como *'Conversar em #spammar'* em português ou *'Message #spammar'*."
+        },
+        "browser_language": {
+          "type": "string",
+          "enum": [
+            "en",
+            "pt"
+          ],
+          "description": "Label exibida no input de mensagens. Utilizado para identificar o input.\n*Exemplo:*\nSe o canal se chamar **Spammar**, o input deve estar como *'Conversar em #spammar'* em português ou *'Message #spammar'*."
+        }
+      },
+      "required": [
+        "channel_url",
+        "input_label",
+        "browser_language"
+      ]
+    },
+    "actions": {
+      "type": "array",
+      "description": "Ações a serem executadas!",
+      "items": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "spamming",
+              "change_poke",
+              "add_market",
+              "remove_market",
+              "booster"
+            ]
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "dependencies": {
+          "action": {
+            "oneOf": [
+              {
+                "properties": {
+                  "action": {
+                    "const": "spamming"
+                  },
+                  "multipages": {
+                    "type": "boolean",
+                    "description": "Caso a ação seja spamming, utilize esta opção para executar em várias páginas."
+                  },
+                  "levels": {
+                    "type": "number",
+                    "description": "Quantos níveis deseja evoluir. Utilizado para calcular a quantidade de mensagens a serem enviadas."
+                  }
+                },
+                "required": [
+                  "levels"
+                ]
+              },
+              {
+                "properties": {
+                  "action": {
+                    "const": "change_poke"
+                  },
+                  "pokemon_id": {
+                    "type": "number",
+                    "description": "Id do pokemon a ser selecionado",
+                    "pattern": "^(?!0$)\\d+$"
+                  }
+                },
+                "required": [
+                  "pokemon_id"
+                ]
+              },
+              {
+                "properties": {
+                  "action": {
+                    "const": "booster"
+                  },
+                  "booster_level": {
+                    "type": "number",
+                    "description": "Nível do booster a ser comprado",
+                    "pattern": "^[123]$"
+                  }
+                },
+                "required": [
+                  "booster_level"
+                ]
+              },
+              {
+                "properties": {
+                  "action": {
+                    "const": "add_market"
+                  },
+                  "range_start": {
+                    "type": "number",
+                    "description": "Id do pokemon a partir do qual serão adicionados ao mercado",
+                    "pattern": "^(?!0$)\\d+$"
+                  },
+                  "range_end": {
+                    "type": "number",
+                    "description": "Id do pokemon até o qual serão adicionados ao mercado",
+                    "pattern": "^(?!0$)\\d+$"
+                  },
+                  "market_value": {
+                    "type": "number",
+                    "description": "Valor cujos pokemons serão adicionados ao mercado",
+                    "pattern": "^(?!0$)\\d+$"
+                  }
+                },
+                "required": [
+                  "range_start",
+                  "range_end",
+                  "market_value"
+                ]
+              },
+              {
+                "properties": {
+                  "action": {
+                    "const": "remove_market"
+                  },
+                  "market_actions": {
+                    "range_start": {
+                      "type": "number",
+                      "description": "Id do pokemon a partir do qual serão adicionados ao mercado",
+                      "pattern": "^(?!0$)\\d+$"
+                    },
+                    "range_end": {
+                      "type": "number",
+                      "description": "Id do pokemon até o qual serão adicionados ao mercado",
+                      "pattern": "^(?!0$)\\d+$"
+                    },
+                    "market_value": {
+                      "type": "number",
+                      "description": "Valor cujos pokemons serão adicionados ao mercado",
+                      "pattern": "^(?!0$)\\d+$"
+                    }
+                  }
+                },
+                "required": [
+                  "range_start",
+                  "range_end",
+                  "market_value"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "authentication",
+    "channel",
+    "actions"
+  ],
+  "$definitions": {}
+}
