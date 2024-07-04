@@ -6,8 +6,8 @@ const bot = new Bot();
 (async () => {
   await bot.launch();
   await bot.login({
-    user: process.env.DISCORD_USER,
-    password: process.env.DISCORD_PASSWORD,
+    user: process.env.DISCORD_USER as string,
+    password: process.env.DISCORD_PASSWORD as string,
     mfa: process.env.DISCORD_MFA,
   });
   await bot.openPage({
