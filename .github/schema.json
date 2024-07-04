@@ -26,6 +26,34 @@
         "password"
       ]
     },
+    "channel": {
+      "type": "object",
+      "description": "Informações do canal para processamento do bot",
+      "properties": {
+        "channel_url": {
+          "type": "string",
+          "pattern": "https?:\/\/(www\\.)?discord\\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\\+.~#?&\/\/=]*)",
+          "description": "URL do canal do discord que será utilizado para o processo de interação do bot."
+        },
+        "input_label": {
+          "type": "string",
+          "description": "Label exibida no input de mensagens. Utilizado para identificar o input.\n*Exemplo:*\nSe o canal se chamar **Spammar**, o input deve estar como *'Conversar em #spammar'* em português ou *'Message #spammar'*."
+        },
+        "browser_language": {
+          "type": "string",
+          "enum": [
+            "en",
+            "pt"
+          ],
+          "description": "Label exibida no input de mensagens. Utilizado para identificar o input.\n*Exemplo:*\nSe o canal se chamar **Spammar**, o input deve estar como *'Conversar em #spammar'* em português ou *'Message #spammar'*."
+        }
+      },
+      "required": [
+        "channel_url",
+        "input_label",
+        "browser_language"
+      ]
+    },
     "actions": {
       "type": "array",
       "description": "Ações a serem executadas!",
@@ -161,6 +189,7 @@
   },
   "required": [
     "authentication",
+    "channel",
     "actions"
   ],
   "$definitions": {}
