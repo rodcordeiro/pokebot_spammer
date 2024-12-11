@@ -1,6 +1,6 @@
 {
     "[yaml]": {
-      
+      "editor.inlineSuggest.enabled": true,
       "editor.insertSpaces": true,
       "editor.tabSize": 2,
       "editor.autoIndent": "advanced",

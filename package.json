@@ -17,13 +17,11 @@
     "puppeteer": "^22.12.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.6.0",
     "@types/node": "^20.14.9",
-    "eslint": "^9.6.0",
+    
     "globals": "^15.7.0",
     "prettier": "^3.3.2",
     "tsx": "^4.16.0",
-    "typescript": "^5.5.3",
-    "typescript-eslint": "^7.15.0"
+    "typescript": "^5.5.3"
   }
 }
